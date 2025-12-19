@@ -1,0 +1,12 @@
+{
+  "name": "evjen-garatun-ans",
+  "version": "1.0.0",
+  "description": "Evjen & Garatun ANS - Digitale løysingar utan støy",
+  "scripts": {
+    "start": "npx serve .",
+    "dev": "npx serve ."
+  },
+  "keywords": ["website", "web", "utvikling", "norge"],
+  "author": "Evjen & Garatun ANS",
+  "license": "ISC"
+}

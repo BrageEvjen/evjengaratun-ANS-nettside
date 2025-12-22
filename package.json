@@ -6,7 +6,15 @@
     "start": "npx serve .",
     "dev": "npx serve ."
   },
-  "keywords": ["website", "web", "utvikling", "norge"],
+  "keywords": [
+    "website",
+    "web",
+    "utvikling",
+    "norge"
+  ],
   "author": "Evjen & Garatun ANS",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "resend": "^6.6.0"
+  }
 }

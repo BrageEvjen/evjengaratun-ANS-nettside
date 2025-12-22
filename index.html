@@ -18,6 +18,11 @@
             <li><a href="#om">Om oss</a></li>
             <li><a href="#kontakt">Kontakt</a></li>
         </ul>
+        <div class="language-selector">
+            <a href="#" class="lang-option active" data-lang="nb">Bokmål</a>
+            <a href="#" class="lang-option" data-lang="nn">Nynorsk</a>
+            <a href="#" class="lang-option" data-lang="en">English</a>
+        </div>
         <a href="#kontakt" class="nav-cta">Ta kontakt</a>
         <button class="menu-toggle" aria-label="Toggle menu">
             <span></span>
@@ -144,13 +149,14 @@
                 <h2>Send oss ein beskjed</h2>
                 <p>Vi svarar innan 24 timar</p>
             </div>
-            <form class="contact-form">
+            <form class="contact-form" id="contactForm">
                 <div class="form-row">
-                    <input type="text" placeholder="Namn">
-                    <input type="email" placeholder="E-post">
+                    <input type="text" id="name" name="name" placeholder="Namn" required>
+                    <input type="email" id="email" name="email" placeholder="E-post" required>
                 </div>
-                <textarea placeholder="Fortel oss kva du treng hjelp med..."></textarea>
-                <button type="submit">Send melding</button>
+                <textarea id="message" name="message" placeholder="Fortel oss kva du treng hjelp med..." required></textarea>
+                <button type="submit" id="submitBtn">Send melding</button>
+                <div id="formStatus" class="form-status"></div>
             </form>
         </div>
     </section>

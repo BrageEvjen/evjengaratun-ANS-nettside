@@ -3,15 +3,20 @@ import { Resend } from 'resend';
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 export default async function handler(req, res) {
+  // Enable CORS
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+
+  // Handle OPTIONS request for CORS preflight
+  if (req.method === 'OPTIONS') {
+    return res.status(200).end();
+  }
+
   // Only allow POST requests
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
-
-  // Enable CORS
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'POST');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
   try {
     const { name, email, message, language } = req.body;
@@ -44,7 +49,7 @@ export default async function handler(req, res) {
     // Send email using Resend
     const data = await resend.emails.send({
       from: 'Evjen & Garatun <onboarding@resend.dev>', // You'll update this after verifying your domain
-      to: ['brage@zak.no', 'garatunm@gmail.com'], // Your business emails
+      to: ['brage@zak.no', 'post@evjengaratun.no'], // Your business emails
       replyTo: email,
       subject: subject,
       html: `

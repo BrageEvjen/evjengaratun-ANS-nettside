@@ -49,7 +49,7 @@ export default async function handler(req, res) {
     // Send email using Resend
     const data = await resend.emails.send({
       from: 'Evjen & Garatun <onboarding@resend.dev>', // You'll update this after verifying your domain
-      to: ['brage@zak.no', 'garatunm@gmail.com'], // Your business emails
+      to: 'brage@zak.no', // Your business email (temporarily one email until garatunm@gmail.com is verified in Resend)
       replyTo: email,
       subject: subject,
       html: `

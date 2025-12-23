@@ -305,11 +305,61 @@ function updateContent() {
 }
 
 function updateLanguageSelector() {
+    // Update all language options (desktop and mobile)
     document.querySelectorAll('.lang-option').forEach(option => {
         option.classList.remove('active');
         if (option.dataset.lang === currentLanguage) {
             option.classList.add('active');
         }
+    });
+
+    // Update current language display
+    const currentLangDisplay = document.querySelector('.current-lang');
+    if (currentLangDisplay) {
+        currentLangDisplay.textContent = currentLanguage.toUpperCase();
+    }
+}
+
+// Language dropdown toggle for desktop
+const langToggle = document.querySelector('.lang-toggle');
+const langSelector = document.querySelector('.language-selector');
+
+if (langToggle && langSelector) {
+    langToggle.addEventListener('click', (e) => {
+        e.stopPropagation();
+        langSelector.classList.toggle('active');
+    });
+
+    // Close dropdown when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!langSelector.contains(e.target)) {
+            langSelector.classList.remove('active');
+        }
+    });
+
+    // Close dropdown when selecting a language
+    document.querySelectorAll('.lang-dropdown .lang-option').forEach(option => {
+        option.addEventListener('click', () => {
+            langSelector.classList.remove('active');
+        });
+    });
+}
+
+// Mobile language toggle
+const mobileLangToggle = document.querySelector('.mobile-lang-toggle');
+const mobileLangSection = document.querySelector('.mobile-lang-section');
+
+if (mobileLangToggle && mobileLangSection) {
+    mobileLangToggle.addEventListener('click', (e) => {
+        e.stopPropagation();
+        mobileLangSection.classList.toggle('active');
+    });
+
+    // Close when selecting a language
+    document.querySelectorAll('.mobile-lang-options .lang-option').forEach(option => {
+        option.addEventListener('click', () => {
+            mobileLangSection.classList.remove('active');
+        });
     });
 }
 

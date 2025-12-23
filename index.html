@@ -17,11 +17,35 @@
             <li><a href="#tjenester">Tjenester</a></li>
             <li><a href="#om">Om oss</a></li>
             <li><a href="#kontakt">Kontakt</a></li>
+            <li class="mobile-lang-section">
+                <button class="mobile-lang-toggle" aria-label="Select language">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="2" y1="12" x2="22" y2="12"></line>
+                        <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                    </svg>
+                </button>
+                <div class="mobile-lang-options">
+                    <a href="#" class="lang-option active" data-lang="nb">Bokmål</a>
+                    <a href="#" class="lang-option" data-lang="nn">Nynorsk</a>
+                    <a href="#" class="lang-option" data-lang="en">English</a>
+                </div>
+            </li>
         </ul>
         <div class="language-selector">
-            <a href="#" class="lang-option active" data-lang="nb">Bokmål</a>
-            <a href="#" class="lang-option" data-lang="nn">Nynorsk</a>
-            <a href="#" class="lang-option" data-lang="en">English</a>
+            <button class="lang-toggle" aria-label="Select language">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="2" y1="12" x2="22" y2="12"></line>
+                    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                </svg>
+                <span class="current-lang">NB</span>
+            </button>
+            <div class="lang-dropdown">
+                <a href="#" class="lang-option active" data-lang="nb">Bokmål</a>
+                <a href="#" class="lang-option" data-lang="nn">Nynorsk</a>
+                <a href="#" class="lang-option" data-lang="en">English</a>
+            </div>
         </div>
         <a href="#kontakt" class="nav-cta">Ta kontakt</a>
         <button class="menu-toggle" aria-label="Toggle menu">

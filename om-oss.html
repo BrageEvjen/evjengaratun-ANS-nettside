@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="nn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Om oss | Evjen & Garatun</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-bg: #FDFBF7;
+            --color-bg-warm: #F7F4ED;
+            --color-text: #2C2C2C;
+            --color-text-muted: #6B6B6B;
+            --color-accent: #4A6B5D;
+            --color-accent-light: #E8F0EC;
+            --color-border: #E5E2DB;
+            --font-serif: 'Cormorant Garamond', Georgia, serif;
+            --font-sans: 'DM Sans', -apple-system, sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background-color: var(--color-bg);
+            color: var(--color-text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            opacity: 0.03;
+            z-index: 1000;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 1.5rem 4rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            background: rgba(253, 251, 247, 0.9);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .logo {
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-text {
+            font-family: var(--font-serif);
+            font-size: 1.4rem;
+            font-weight: 500;
+            color: var(--color-text);
+            letter-spacing: 0.02em;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 3rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--color-text-muted);
+            font-size: 0.9rem;
+            font-weight: 400;
+            letter-spacing: 0.02em;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a.active {
+            color: var(--color-text);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--color-accent);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            color: var(--color-text);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-cta {
+            padding: 0.75rem 1.5rem;
+            background: var(--color-text);
+            color: var(--color-bg);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            border-radius: 100px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-cta:hover {
+            background: var(--color-accent);
+            transform: translateY(-2px);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                padding: 1rem 1.5rem;
+            }
+            .nav-links {
+                display: none;
+            }
+            .mobile-menu-btn {
+                display: block;
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Hero Section */
+        .about-hero {
+            padding: 12rem 4rem 6rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            align-items: center;
+        }
+
+        .about-hero-content {
+            opacity: 0;
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        .hero-label {
+            font-size: 0.8rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--color-accent);
+            margin-bottom: 1.5rem;
+        }
+
+        .about-hero h1 {
+            font-family: var(--font-serif);
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 400;
+            letter-spacing: -0.03em;
+            line-height: 1.15;
+            margin-bottom: 2rem;
+        }
+
+        .about-hero h1 em {
+            font-style: italic;
+            color: var(--color-accent);
+        }
+
+        .about-intro {
+            font-size: 1.15rem;
+            color: var(--color-text-muted);
+            line-height: 1.9;
+        }
+
+        .about-hero-visual {
+            position: relative;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease forwards;
+            animation-delay: 0.2s;
+        }
+
+        .visual-frame {
+            aspect-ratio: 4/5;
+            background: var(--color-bg-warm);
+            border-radius: 24px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .visual-pattern {
+            position: absolute;
+            inset: 0;
+            display: grid;
+            grid-template-columns: repeat(8, 1fr);
+            grid-template-rows: repeat(10, 1fr);
+            gap: 2px;
+            padding: 2rem;
+        }
+
+        .pattern-cell {
+            background: var(--color-border);
+            border-radius: 4px;
+            opacity: 0;
+            animation: cellFade 0.5s ease forwards;
+        }
+
+        @keyframes cellFade {
+            to { opacity: 0.3; }
+        }
+
+        .visual-overlay {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, transparent 40%, var(--color-bg-warm) 100%);
+        }
+
+        .overlay-text {
+            font-family: var(--font-serif);
+            font-size: 8rem;
+            font-weight: 400;
+            color: var(--color-accent);
+            opacity: 0.15;
+            letter-spacing: -0.05em;
+        }
+
+        /* Team Section */
+        .team-section {
+            padding: 8rem 4rem;
+            background: var(--color-bg-warm);
+        }
+
+        .team-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .team-header {
+            text-align: center;
+            margin-bottom: 5rem;
+        }
+
+        .team-label {
+            font-size: 0.8rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--color-accent);
+            margin-bottom: 1rem;
+        }
+
+        .team-title {
+            font-family: var(--font-serif);
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 400;
+            letter-spacing: -0.02em;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 3rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .team-card {
+            background: var(--color-bg);
+            border-radius: 24px;
+            padding: 3rem;
+            text-align: center;
+            transition: all 0.4s ease;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .team-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .team-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.08);
+        }
+
+        .team-avatar {
+            width: 120px;
+            height: 120px;
+            background: var(--color-accent-light);
+            border-radius: 50%;
+            margin: 0 auto 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-serif);
+            font-size: 2.5rem;
+            color: var(--color-accent);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .team-avatar::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, transparent 50%, rgba(74, 107, 93, 0.1) 100%);
+        }
+
+        .team-card h3 {
+            font-family: var(--font-serif);
+            font-size: 1.6rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        .team-role {
+            color: var(--color-accent);
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+        }
+
+        .team-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .team-link {
+            width: 40px;
+            height: 40px;
+            border: 1px solid var(--color-border);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-text-muted);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .team-link:hover {
+            border-color: var(--color-accent);
+            background: var(--color-accent);
+            color: var(--color-bg);
+        }
+
+        .team-link svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        /* Footer */
+        footer {
+            padding: 4rem;
+            border-top: 1px solid var(--color-border);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-logo {
+            font-family: var(--font-serif);
+            font-size: 1.3rem;
+            font-weight: 500;
+        }
+
+        .footer-info {
+            text-align: center;
+            color: var(--color-text-muted);
+            font-size: 0.85rem;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .footer-links a {
+            color: var(--color-text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--color-text);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .about-hero {
+                grid-template-columns: 1fr;
+                gap: 4rem;
+            }
+
+            .about-hero-visual {
+                max-width: 500px;
+                margin: 0 auto;
+            }
+
+        }
+
+        @media (max-width: 768px) {
+            .about-hero,
+            .team-section {
+                padding-left: 1.5rem;
+                padding-right: 1.5rem;
+            }
+
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+
+            footer {
+                padding: 2rem 1.5rem;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                gap: 1.5rem;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <a href="index.html" class="logo"><span class="logo-text">Evjen & Garatun ANS</span></a>
+        <ul class="nav-links">
+            <li><a href="index.html">Heim</a></li>
+            <li><a href="tjenester.html">Tenester</a></li>
+            <li><a href="om-oss.html" class="active">Om oss</a></li>
+            <li><a href="index.html#kontakt">Kontakt</a></li>
+        </ul>
+        <a href="index.html#kontakt" class="nav-cta">Start eit prosjekt</a>
+        <button class="mobile-menu-btn" aria-label="Meny">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="3" y1="6" x2="21" y2="6"></line>
+                <line x1="3" y1="12" x2="21" y2="12"></line>
+                <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+        </button>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="about-hero">
+        <div class="about-hero-content">
+            <p class="hero-label">Om oss</p>
+            <h1>To personar med <em>lidenskap</em> for det digitale</h1>
+            <p class="about-intro">Vi er Evjen og Garatun. Vi lagar nettsider og programvare.</p>
+        </div>
+        <div class="about-hero-visual">
+            <div class="visual-frame">
+                <div class="visual-pattern" id="pattern"></div>
+                <div class="visual-overlay">
+                    <span class="overlay-text">E&G</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="team-section">
+        <div class="team-wrapper">
+            <div class="team-header">
+                <p class="team-label">Teamet</p>
+                <h2 class="team-title">Folka bak</h2>
+            </div>
+            <div class="team-grid">
+                <div class="team-card">
+                    <div class="team-avatar">BE</div>
+                    <h3>Brage Evjen</h3>
+                    <p class="team-role">Medgründer & Utviklar</p>
+                    <div class="team-links">
+                        <a href="mailto:brage@zak.no" class="team-link" aria-label="E-post">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                                <polyline points="22,6 12,13 2,6"/>
+                            </svg>
+                        </a>
+                        <a href="tel:+4793803001" class="team-link" aria-label="Telefon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="team-card">
+                    <div class="team-avatar">MG</div>
+                    <h3>Matias Garatun</h3>
+                    <p class="team-role">Medgründer & Designer</p>
+                    <div class="team-links">
+                        <a href="mailto:garatunm@gmail.com" class="team-link" aria-label="E-post">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                                <polyline points="22,6 12,13 2,6"/>
+                            </svg>
+                        </a>
+                        <a href="tel:+4748433746" class="team-link" aria-label="Telefon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">Evjen & Garatun</div>
+            <div class="footer-info">
+                <p>Org.nr: 936 893 147</p>
+                <p>© 2025 Evjen & Garatun ANS</p>
+            </div>
+            <div class="footer-links">
+                <a href="tjenester.html">Tenester</a>
+                <a href="om-oss.html">Om oss</a>
+                <a href="index.html#kontakt">Kontakt</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Generate pattern cells
+        const pattern = document.getElementById('pattern');
+        for (let i = 0; i < 80; i++) {
+            const cell = document.createElement('div');
+            cell.className = 'pattern-cell';
+            cell.style.animationDelay = `${Math.random() * 2}s`;
+            pattern.appendChild(cell);
+        }
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.2,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.classList.add('visible');
+                    }, index * 100);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.team-card').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>

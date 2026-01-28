@@ -4,7 +4,8 @@
   "description": "Evjen & Garatun ANS - Digitale løysingar utan støy",
   "scripts": {
     "start": "npx serve .",
-    "dev": "npx serve ."
+    "dev": "vercel dev",
+    "serve": "npx serve ."
   },
   "keywords": [
     "website",

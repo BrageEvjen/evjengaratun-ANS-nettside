@@ -356,7 +356,7 @@
         /* Values Section */
         .values-section {
             padding: 8rem 4rem;
-            background: var(--color-bg-warm);
+            background: #E8E4DC;
         }
 
         .section-header {
@@ -528,7 +528,7 @@
         /* Contact Section */
         .contact-section {
             padding: 8rem 4rem;
-            background: var(--color-bg-warm);
+            background: #E8E4DC;
         }
 
         .contact-wrapper {
@@ -639,6 +639,38 @@
         .submit-btn:hover {
             background: var(--color-accent);
             transform: translateY(-2px);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .form-status {
+            margin-top: 1rem;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            display: none;
+        }
+
+        .form-status:not(:empty) {
+            display: block;
+        }
+
+        .form-status-sending {
+            background: var(--color-accent-light);
+            color: var(--color-accent);
+        }
+
+        .form-status-success {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .form-status-error {
+            background: #f8d7da;
+            color: #721c24;
         }
 
         /* Footer */
@@ -781,7 +813,7 @@
                 <span>Ledige for nye oppdrag</span>
             </div>
             <h1 id="heroTitle"><span id="typedText"></span><span class="typing-cursor" id="cursor"></span></h1>
-            <p class="hero-description">Vi lagar nettsider og programvare. Enkelt forklart, solid levert.</p>
+            <p class="hero-description">Vi lagar nettsider og programvare.</p>
             <div class="hero-buttons">
                 <a href="#kontakt" class="btn-primary">
                     Start samtalen
@@ -900,7 +932,7 @@
                     </span>
                 </div>
             </div>
-            <form class="contact-form">
+            <form class="contact-form" id="contactForm">
                 <div class="form-group">
                     <label for="name">Namn</label>
                     <input type="text" id="name" name="name" placeholder="Ditt namn" required>
@@ -913,7 +945,8 @@
                     <label for="message">Melding</label>
                     <textarea id="message" name="message" placeholder="Fortel oss om prosjektet ditt..." required></textarea>
                 </div>
-                <button type="submit" class="submit-btn">Send melding</button>
+                <button type="submit" class="submit-btn" id="submitBtn">Send melding</button>
+                <div id="formStatus" class="form-status"></div>
             </form>
         </div>
     </section>
@@ -1043,6 +1076,61 @@
                 typeNextChar();
             }, 600);
         })();
+
+        // Contact form submission
+        const contactForm = document.getElementById('contactForm');
+        const formStatus = document.getElementById('formStatus');
+        const submitBtn = document.getElementById('submitBtn');
+
+        if (contactForm) {
+            contactForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+
+                const name = document.getElementById('name').value;
+                const email = document.getElementById('email').value;
+                const message = document.getElementById('message').value;
+
+                formStatus.textContent = 'Sender melding...';
+                formStatus.className = 'form-status form-status-sending';
+                submitBtn.disabled = true;
+
+                try {
+                    const response = await fetch('/api/send-email', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            name,
+                            email,
+                            message,
+                            language: 'nn'
+                        }),
+                    });
+
+                    const data = await response.json();
+
+                    if (response.ok) {
+                        formStatus.textContent = 'Melding sendt! Vi svarar innan 24 timar.';
+                        formStatus.className = 'form-status form-status-success';
+                        contactForm.reset();
+
+                        setTimeout(() => {
+                            formStatus.textContent = '';
+                            formStatus.className = 'form-status';
+                        }, 5000);
+                    } else {
+                        throw new Error(data.error || 'Failed to send message');
+                    }
+                } catch (error) {
+                    console.error('Error submitting form:', error);
+                    formStatus.textContent = 'Noko gjekk galt. Prøv igjen eller send e-post direkte til brage@zak.no';
+                    formStatus.className = 'form-status form-status-error';
+                } finally {
+                    submitBtn.disabled = false;
+                }
+            });
+        }
     </script>
 </body>
 </html>

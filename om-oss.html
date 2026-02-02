@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="nn">
+<html lang="nb">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -235,47 +235,46 @@
             justify-content: center;
         }
 
-        /* 3D Rotating Cube */
-        .cube-scene {
-            width: 200px;
-            height: 200px;
-            perspective: 800px;
-        }
-
-        .cube {
-            width: 100%;
-            height: 100%;
-            position: relative;
-            transform-style: preserve-3d;
-            animation: cubeRotate 15s linear infinite;
-        }
-
-        .cube-face {
-            position: absolute;
-            width: 200px;
-            height: 200px;
-            border: 3px solid var(--color-accent);
-            background: rgba(74, 107, 93, 0.1);
-            backdrop-filter: blur(5px);
+        /* DNA Helix */
+        .dna-container {
+            height: 280px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-family: var(--font-serif);
-            font-size: 3rem;
-            font-weight: 500;
-            color: var(--color-accent);
+            gap: 12px;
         }
 
-        .cube-face.front  { transform: rotateY(0deg) translateZ(100px); }
-        .cube-face.back   { transform: rotateY(180deg) translateZ(100px); }
-        .cube-face.right  { transform: rotateY(90deg) translateZ(100px); }
-        .cube-face.left   { transform: rotateY(-90deg) translateZ(100px); }
-        .cube-face.top    { transform: rotateX(90deg) translateZ(100px); }
-        .cube-face.bottom { transform: rotateX(-90deg) translateZ(100px); }
+        .dna-strand {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
 
-        @keyframes cubeRotate {
-            0% { transform: rotateX(0deg) rotateY(0deg); }
-            100% { transform: rotateX(360deg) rotateY(360deg); }
+        .dna-node {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--color-accent);
+            animation: dnaFloat 2.5s ease-in-out infinite both;
+        }
+
+        .dna-strand:nth-child(1) .dna-node:nth-child(1) { animation-delay: -2.5s; }
+        .dna-strand:nth-child(1) .dna-node:nth-child(2) { animation-delay: -2.25s; }
+        .dna-strand:nth-child(1) .dna-node:nth-child(3) { animation-delay: -2s; }
+        .dna-strand:nth-child(1) .dna-node:nth-child(4) { animation-delay: -1.75s; }
+        .dna-strand:nth-child(1) .dna-node:nth-child(5) { animation-delay: -1.5s; }
+        .dna-strand:nth-child(1) .dna-node:nth-child(6) { animation-delay: -1.25s; }
+
+        .dna-strand:nth-child(2) .dna-node:nth-child(1) { animation-delay: -1.25s; }
+        .dna-strand:nth-child(2) .dna-node:nth-child(2) { animation-delay: -1.5s; }
+        .dna-strand:nth-child(2) .dna-node:nth-child(3) { animation-delay: -1.75s; }
+        .dna-strand:nth-child(2) .dna-node:nth-child(4) { animation-delay: -2s; }
+        .dna-strand:nth-child(2) .dna-node:nth-child(5) { animation-delay: -2.25s; }
+        .dna-strand:nth-child(2) .dna-node:nth-child(6) { animation-delay: -2.5s; }
+
+        @keyframes dnaFloat {
+            0%, 100% { transform: translateX(-40px) scale(0.5); opacity: 0.3; }
+            50% { transform: translateX(40px) scale(1); opacity: 1; }
         }
 
         /* Team Section */
@@ -338,8 +337,8 @@
         }
 
         .team-portrait {
-            width: 180px;
-            height: 180px;
+            width: 220px;
+            height: 220px;
             margin: 0 auto 2rem;
             border-radius: 50%;
             overflow: hidden;
@@ -356,6 +355,34 @@
             font-family: var(--font-serif);
             font-size: 1.6rem;
             font-weight: 500;
+            margin-bottom: 1rem;
+        }
+
+        .team-card p {
+            color: var(--color-text-muted);
+            font-size: 0.95rem;
+            line-height: 1.7;
+            text-align: left;
+        }
+
+        .team-card .linkedin-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            color: var(--color-accent);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+
+        .team-card .linkedin-link:hover {
+            color: var(--color-text);
+        }
+
+        .team-card .linkedin-link svg {
+            width: 20px;
+            height: 20px;
         }
 
         /* Footer */
@@ -367,9 +394,10 @@
         .footer-content {
             max-width: 1200px;
             margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 2rem;
+            align-items: start;
         }
 
         .footer-logo {
@@ -384,20 +412,79 @@
             font-size: 0.85rem;
         }
 
-        .footer-links {
+        .footer-contact {
             display: flex;
-            gap: 2rem;
+            flex-direction: column;
+            gap: 0.5rem;
+            text-align: right;
         }
 
-        .footer-links a {
+        .footer-contact a,
+        .footer-contact span {
             color: var(--color-text-muted);
             text-decoration: none;
             font-size: 0.9rem;
             transition: color 0.3s ease;
         }
 
-        .footer-links a:hover {
+        .footer-contact a:hover {
+            color: var(--color-accent);
+        }
+
+        /* Mobile menu button */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+            z-index: 101;
+        }
+
+        /* Mobile menu overlay */
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--color-bg);
+            z-index: 99;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .mobile-menu.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .mobile-menu a {
+            font-family: var(--font-serif);
+            font-size: 2rem;
             color: var(--color-text);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .mobile-menu a:hover {
+            color: var(--color-accent);
+        }
+
+        .mobile-menu .mobile-cta {
+            margin-top: 1rem;
+            padding: 1rem 2rem;
+            background: var(--color-text);
+            color: var(--color-bg);
+            border-radius: 100px;
+            font-family: var(--font-sans);
+            font-size: 1rem;
         }
 
         /* Responsive */
@@ -414,18 +501,103 @@
         }
 
         @media (max-width: 768px) {
-            .about-hero,
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .mobile-menu {
+                display: flex;
+            }
+
+            nav {
+                padding: 1rem 1.5rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .nav-cta {
+                display: none;
+            }
+
+            .logo-text {
+                font-size: 1.1rem;
+            }
+
+            .about-hero {
+                padding: 8rem 1.5rem 4rem;
+                gap: 2rem;
+            }
+
+            .about-hero-content {
+                text-align: center;
+            }
+
+            .about-hero h1 {
+                font-size: 2rem;
+            }
+
+            .about-intro {
+                font-size: 1rem;
+            }
+
+            /* DNA on mobile - larger and more visible */
+            .visual-frame {
+                overflow: visible;
+                aspect-ratio: auto;
+                min-height: 200px;
+            }
+
+            .dna-container {
+                height: 200px;
+                gap: 16px;
+                width: 150px;
+            }
+
+            .dna-strand {
+                gap: 18px;
+            }
+
+            .dna-node {
+                width: 22px;
+                height: 22px;
+                box-shadow: 0 0 12px rgba(74, 107, 93, 0.5);
+            }
+
+            @keyframes dnaFloat {
+                0%, 100% { transform: translateX(-35px) scale(0.6); opacity: 0.5; }
+                50% { transform: translateX(35px) scale(1); opacity: 1; }
+            }
+
             .team-section {
-                padding-left: 1.5rem;
-                padding-right: 1.5rem;
+                padding: 4rem 1.5rem;
+            }
+
+            .team-header {
+                margin-bottom: 3rem;
+            }
+
+            .team-title {
+                font-size: 2rem;
             }
 
             .team-grid {
                 grid-template-columns: 1fr;
+                gap: 1.5rem;
             }
 
-            .visual-text {
-                font-size: 2.5rem;
+            .team-card {
+                padding: 2rem;
+            }
+
+            .team-portrait {
+                width: 160px;
+                height: 160px;
+            }
+
+            .team-card h3 {
+                font-size: 1.3rem;
             }
 
             footer {
@@ -433,8 +605,12 @@
             }
 
             .footer-content {
-                flex-direction: column;
+                grid-template-columns: 1fr;
                 gap: 1.5rem;
+                text-align: center;
+            }
+
+            .footer-contact {
                 text-align: center;
             }
         }
@@ -445,13 +621,12 @@
     <nav>
         <a href="index.html" class="logo"><span class="logo-text">Evjen & Garatun ANS</span></a>
         <ul class="nav-links">
-            <li><a href="index.html">Heim</a></li>
-            <li><a href="tjenester.html">Tenester</a></li>
+            <li><a href="index.html">Hjem</a></li>
+            <li><a href="tjenester.html">Tjenester</a></li>
             <li><a href="om-oss.html" class="active">Om oss</a></li>
-            <li><a href="index.html#kontakt">Kontakt</a></li>
         </ul>
-        <a href="index.html#kontakt" class="nav-cta">Start eit prosjekt</a>
-        <button class="mobile-menu-btn" aria-label="Meny">
+        <a href="index.html#kontakt" class="nav-cta">Start et prosjekt</a>
+        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Meny">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <line x1="3" y1="6" x2="21" y2="6"></line>
                 <line x1="3" y1="12" x2="21" y2="12"></line>
@@ -460,23 +635,39 @@
         </button>
     </nav>
 
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="index.html">Hjem</a>
+        <a href="tjenester.html">Tjenester</a>
+        <a href="om-oss.html">Om oss</a>
+        <a href="index.html#kontakt" class="mobile-cta">Start et prosjekt</a>
+    </div>
+
     <!-- Hero Section -->
     <section class="about-hero">
         <div class="about-hero-content">
             <p class="hero-label">Om oss</p>
-            <h1>To personar med <em>lidenskap</em> for det digitale</h1>
-            <p class="about-intro">Vi er Evjen og Garatun. Vi lagar nettsider og programvare.</p>
+            <h1>To personer med <em>lidenskap</em> for det digitale</h1>
+            <p class="about-intro">Vi er Evjen og Garatun. Vi lager nettsider og programvare.</p>
         </div>
         <div class="about-hero-visual">
             <div class="visual-frame">
-                <div class="cube-scene">
-                    <div class="cube">
-                        <div class="cube-face front">E&G</div>
-                        <div class="cube-face back">E&G</div>
-                        <div class="cube-face right">E&G</div>
-                        <div class="cube-face left">E&G</div>
-                        <div class="cube-face top">E&G</div>
-                        <div class="cube-face bottom">E&G</div>
+                <div class="dna-container">
+                    <div class="dna-strand">
+                        <div class="dna-node"></div>
+                        <div class="dna-node"></div>
+                        <div class="dna-node"></div>
+                        <div class="dna-node"></div>
+                        <div class="dna-node"></div>
+                        <div class="dna-node"></div>
+                    </div>
+                    <div class="dna-strand">
+                        <div class="dna-node"></div>
+                        <div class="dna-node"></div>
+                        <div class="dna-node"></div>
+                        <div class="dna-node"></div>
+                        <div class="dna-node"></div>
+                        <div class="dna-node"></div>
                     </div>
                 </div>
             </div>
@@ -488,21 +679,35 @@
         <div class="team-wrapper">
             <div class="team-header">
                 <p class="team-label">Teamet</p>
-                <h2 class="team-title">Folka bak</h2>
+                <h2 class="team-title">Folkene bak</h2>
             </div>
             <div class="team-grid">
                 <div class="team-card">
                     <div class="team-portrait">
-                        <!-- Legg til bilete her -->
+                        <img src="BrageBilde.webp" alt="Brage Evjen">
                     </div>
                     <h3>Brage Evjen</h3>
+                    <p>Dataingeniørstudent ved Universitetet i Agder med spesialisering innen software. Interessert i kunstig intelligens og glad i å grave seg ned i komplekse problemer. Spiller sjakk på fritiden, men foretrekker når koden gjør det han vil på første forsøk.</p>
+                    <a href="https://www.linkedin.com/in/brage-evjen-7b0b29347/" target="_blank" class="linkedin-link">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                        </svg>
+                        LinkedIn
+                    </a>
                 </div>
 
                 <div class="team-card">
                     <div class="team-portrait">
-                        <!-- Legg til bilete her -->
+                        <img src="MatiasBilde.webp" alt="Matias Garatun">
                     </div>
                     <h3>Matias Garatun</h3>
+                    <p>Dataingeniørstudent ved Universitetet i Agder med spesialisering innen software. Like opptatt av at ting ser bra ut som at det fungerer under panseret, med interesse for design og den forretningsmessige siden av ting. Tar gjerne en runde sjakk i tenkepausen.</p>
+                    <a href="https://www.linkedin.com/in/matias-garatun-494a2a349/" target="_blank" class="linkedin-link">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                        </svg>
+                        LinkedIn
+                    </a>
                 </div>
             </div>
         </div>
@@ -511,20 +716,61 @@
     <!-- Footer -->
     <footer>
         <div class="footer-content">
-            <div class="footer-logo">Evjen & Garatun</div>
+            <div class="footer-logo">Evjen & Garatun ANS</div>
             <div class="footer-info">
                 <p>Org.nr: 936 893 147</p>
-                <p>© 2025 Evjen & Garatun ANS</p>
+                <p>© 2026 Evjen & Garatun ANS</p>
             </div>
-            <div class="footer-links">
-                <a href="tjenester.html">Tenester</a>
-                <a href="om-oss.html">Om oss</a>
-                <a href="index.html#kontakt">Kontakt</a>
+            <div class="footer-contact">
+                <a href="mailto:brage@zak.no">brage@zak.no</a>
+                <a href="tel:+4793803001">938 03 001</a>
+                <a href="mailto:garatunm@gmail.com">garatunm@gmail.com</a>
+                <a href="tel:+4748433746">484 33 746</a>
             </div>
         </div>
     </footer>
 
     <script>
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('active');
+            const lines = mobileMenuBtn.querySelectorAll('line');
+            if (mobileMenu.classList.contains('active')) {
+                lines[0].setAttribute('y1', '12');
+                lines[0].setAttribute('y2', '12');
+                lines[0].setAttribute('transform', 'rotate(45 12 12)');
+                lines[1].style.opacity = '0';
+                lines[2].setAttribute('y1', '12');
+                lines[2].setAttribute('y2', '12');
+                lines[2].setAttribute('transform', 'rotate(-45 12 12)');
+            } else {
+                lines[0].setAttribute('y1', '6');
+                lines[0].setAttribute('y2', '6');
+                lines[0].removeAttribute('transform');
+                lines[1].style.opacity = '1';
+                lines[2].setAttribute('y1', '18');
+                lines[2].setAttribute('y2', '18');
+                lines[2].removeAttribute('transform');
+            }
+        });
+
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('active');
+                const lines = mobileMenuBtn.querySelectorAll('line');
+                lines[0].setAttribute('y1', '6');
+                lines[0].setAttribute('y2', '6');
+                lines[0].removeAttribute('transform');
+                lines[1].style.opacity = '1';
+                lines[2].setAttribute('y1', '18');
+                lines[2].setAttribute('y2', '18');
+                lines[2].removeAttribute('transform');
+            });
+        });
+
         // Intersection Observer for animations
         const observerOptions = {
             threshold: 0.2,

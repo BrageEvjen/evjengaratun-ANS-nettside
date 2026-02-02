@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="nn">
+<html lang="nb">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tenester | Evjen & Garatun</title>
+    <title>Tjenester | Evjen & Garatun</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -595,9 +595,10 @@
         .footer-content {
             max-width: 1200px;
             margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 2rem;
+            align-items: start;
         }
 
         .footer-logo {
@@ -612,20 +613,79 @@
             font-size: 0.85rem;
         }
 
-        .footer-links {
+        .footer-contact {
             display: flex;
-            gap: 2rem;
+            flex-direction: column;
+            gap: 0.5rem;
+            text-align: right;
         }
 
-        .footer-links a {
+        .footer-contact a,
+        .footer-contact span {
             color: var(--color-text-muted);
             text-decoration: none;
             font-size: 0.9rem;
             transition: color 0.3s ease;
         }
 
-        .footer-links a:hover {
+        .footer-contact a:hover {
+            color: var(--color-accent);
+        }
+
+        /* Mobile menu button */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+            z-index: 101;
+        }
+
+        /* Mobile menu overlay */
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--color-bg);
+            z-index: 99;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .mobile-menu.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .mobile-menu a {
+            font-family: var(--font-serif);
+            font-size: 2rem;
             color: var(--color-text);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .mobile-menu a:hover {
+            color: var(--color-accent);
+        }
+
+        .mobile-menu .mobile-cta {
+            margin-top: 1rem;
+            padding: 1rem 2rem;
+            background: var(--color-text);
+            color: var(--color-bg);
+            border-radius: 100px;
+            font-family: var(--font-sans);
+            font-size: 1rem;
         }
 
         /* Responsive */
@@ -645,20 +705,75 @@
         }
 
         @media (max-width: 768px) {
-            .page-header,
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .mobile-menu {
+                display: flex;
+            }
+
+            nav {
+                padding: 1rem 1.5rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .nav-cta {
+                display: none;
+            }
+
+            .logo-text {
+                font-size: 1.1rem;
+            }
+
+            .page-header {
+                padding: 8rem 1.5rem 3rem;
+            }
+
+            .page-title {
+                font-size: 2.5rem;
+            }
+
             .services-section,
             .process-section,
             .cta-section {
-                padding-left: 1.5rem;
-                padding-right: 1.5rem;
+                padding: 4rem 1.5rem;
             }
 
             .service-card {
-                padding: 2rem;
+                padding: 1.5rem;
+            }
+
+            .service-number {
+                font-size: 2.5rem;
+            }
+
+            .service-card h3 {
+                font-size: 1.4rem;
+            }
+
+            .service-features {
+                gap: 0.4rem;
+            }
+
+            .service-feature {
+                font-size: 0.75rem;
+                padding: 0.4rem 0.75rem;
+            }
+
+            .process-header {
+                margin-bottom: 3rem;
             }
 
             .process-step {
                 gap: 1.5rem;
+            }
+
+            .step-content h4 {
+                font-size: 1.25rem;
             }
 
             footer {
@@ -666,9 +781,23 @@
             }
 
             .footer-content {
-                flex-direction: column;
+                grid-template-columns: 1fr;
                 gap: 1.5rem;
                 text-align: center;
+            }
+
+            .footer-contact {
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .page-title {
+                font-size: 2rem;
+            }
+
+            .service-card h3 {
+                font-size: 1.2rem;
             }
         }
     </style>
@@ -678,13 +807,12 @@
     <nav>
         <a href="index.html" class="logo"><span class="logo-text">Evjen & Garatun ANS</span></a>
         <ul class="nav-links">
-            <li><a href="index.html">Heim</a></li>
-            <li><a href="tjenester.html" class="active">Tenester</a></li>
+            <li><a href="index.html">Hjem</a></li>
+            <li><a href="tjenester.html" class="active">Tjenester</a></li>
             <li><a href="om-oss.html">Om oss</a></li>
-            <li><a href="index.html#kontakt">Kontakt</a></li>
         </ul>
-        <a href="index.html#kontakt" class="nav-cta">Start eit prosjekt</a>
-        <button class="mobile-menu-btn" aria-label="Meny">
+        <a href="index.html#kontakt" class="nav-cta">Start et prosjekt</a>
+        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Meny">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <line x1="3" y1="6" x2="21" y2="6"></line>
                 <line x1="3" y1="12" x2="21" y2="12"></line>
@@ -693,13 +821,20 @@
         </button>
     </nav>
 
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="index.html">Hjem</a>
+        <a href="tjenester.html">Tjenester</a>
+        <a href="om-oss.html">Om oss</a>
+        <a href="index.html#kontakt" class="mobile-cta">Start et prosjekt</a>
+    </div>
+
     <!-- Page Header -->
     <section class="page-header">
         <div class="page-header-content">
-            <p class="page-label">Tenester</p>
-            <h1 class="page-title">Kva vi tilbyr</h1>
-            <p class="page-subtitle">Frå idé til ferdig løysing.</p>
-        </div>
+            <p class="page-label">Tjenester</p>
+            <h1 class="page-title">Hva vi tilbyr</h1>
+                    </div>
     </section>
 
     <!-- Services Grid -->
@@ -708,21 +843,21 @@
             <div class="service-card">
                 <span class="service-number">01</span>
                 <h3>Webdesign</h3>
-                <p>Vi lagar nettsider som fungerer. Moderne, responsive og enkle å bruke.</p>
+                <p>Vi lager nettsider som fungerer. Moderne, responsive og enkle å bruke.</p>
                 <div class="service-features">
                     <span class="service-feature">Responsivt design</span>
                     <span class="service-feature">UI/UX</span>
-                    <span class="service-feature">Kreative løysingar</span>
+                    <span class="service-feature">Kreative løsninger</span>
                 </div>
             </div>
 
             <div class="service-card">
                 <span class="service-number">02</span>
-                <h3>Drift & Vedlikehald</h3>
-                <p>Vi held nettsida di oppdatert og sikker. Du slepp å tenke på det tekniske.</p>
+                <h3>Drift & Vedlikehold</h3>
+                <p>Vi holder nettsiden din oppdatert og sikker. Du slipper å tenke på det tekniske.</p>
                 <div class="service-features">
-                    <span class="service-feature">Oppdateringar</span>
-                    <span class="service-feature">Sikkerheit</span>
+                    <span class="service-feature">Oppdateringer</span>
+                    <span class="service-feature">Sikkerhet</span>
                     <span class="service-feature">Backup</span>
                     <span class="service-feature">Support</span>
                 </div>
@@ -731,12 +866,13 @@
             <div class="service-card featured">
                 <div class="featured-content">
                     <span class="service-number">03</span>
-                    <h3>Skreddarsydd Utvikling</h3>
-                    <p>Treng du meir enn ei standard løysing? Vi byggjer programvare som løyser akkurat dine utfordringar.</p>
+                    <h3>Skreddersydd Utvikling</h3>
+                    <p>Trenger du mer enn en standard løsning? Vi bygger programvare som løser akkurat dine utfordringer.</p>
                     <div class="service-features">
-                        <span class="service-feature">Web-applikasjonar</span>
-                        <span class="service-feature">API-integrasjonar</span>
+                        <span class="service-feature">Web-applikasjoner</span>
+                        <span class="service-feature">API-integrasjoner</span>
                         <span class="service-feature">Automatisering</span>
+                        <span class="service-feature">AI-integrering</span>
                     </div>
                 </div>
                 <div class="featured-visual">
@@ -747,8 +883,7 @@
                             <span></span>
                         </div>
                         <div class="code-content">
-                            <div class="code-line"><span class="code-comment">// Din neste løysing</span></div>
-                            <div class="code-line"><span class="code-keyword">const</span> <span class="code-function">løysing</span> = <span class="code-keyword">await</span></div>
+                            <div class="code-line"><span class="code-keyword">const</span> <span class="code-function">løsning</span> = <span class="code-keyword">await</span></div>
                             <div class="code-line">&nbsp;&nbsp;evjenGaratun.<span class="code-function">bygg</span>({</div>
                             <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;kvalitet: <span class="code-string">'solid'</span>,</div>
                             <div class="code-line">&nbsp;&nbsp;});</div>
@@ -763,71 +898,98 @@
     <section class="process-section">
         <div class="process-header">
             <p class="process-label">Prosessen</p>
-            <h2 class="process-title">Korleis vi jobbar</h2>
+            <h2 class="process-title">Hvordan vi jobber</h2>
         </div>
         <div class="process-steps">
             <div class="process-step">
                 <div class="step-number">1</div>
                 <div class="step-content">
                     <h4>Samtale</h4>
-                    <p>Vi startar med å forstå kva du treng. Kva problem skal løysast? Kva mål har du?</p>
+                    <p>Vi starter med å forstå hva du trenger. Hvilket problem skal løses? Hvilke mål har du?</p>
                 </div>
             </div>
             <div class="process-step">
                 <div class="step-number">2</div>
                 <div class="step-content">
                     <h4>Planlegging</h4>
-                    <p>Vi lagar ein klar plan. Du veit kva som skal gjerast, når det skal vere ferdig, og kva det kostar.</p>
+                    <p>Vi lager en klar plan. Du vet hva som skal gjøres, når det skal være ferdig, og hva det koster.</p>
                 </div>
             </div>
             <div class="process-step">
                 <div class="step-number">3</div>
                 <div class="step-content">
                     <h4>Utvikling</h4>
-                    <p>Vi byggjer løysinga steg for steg. Du får jamleg oppdatering og kan gi tilbakemelding undervegs.</p>
+                    <p>Vi bygger løsningen steg for steg. Du får jevnlig oppdatering og kan gi tilbakemelding underveis.</p>
                 </div>
             </div>
             <div class="process-step">
                 <div class="step-number">4</div>
                 <div class="step-content">
                     <h4>Levering</h4>
-                    <p>Når alt er klart, hjelper vi deg i gang. Vi sikrar at alt fungerer før vi er ferdige.</p>
+                    <p>Når alt er klart, hjelper vi deg i gang. Vi sikrer at alt fungerer før vi er ferdige.</p>
                 </div>
             </div>
-        </div>
-    </section>
-
-    <!-- CTA Section -->
-    <section class="cta-section">
-        <div class="cta-content">
-            <h2>Klar for å starte?</h2>
-            <p>Ta kontakt for ein prat om prosjektet ditt.</p>
-            <a href="index.html#kontakt" class="btn-primary">
-                Ta kontakt
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M5 12h14M12 5l7 7-7 7"/>
-                </svg>
-            </a>
         </div>
     </section>
 
     <!-- Footer -->
     <footer>
         <div class="footer-content">
-            <div class="footer-logo">Evjen & Garatun</div>
+            <div class="footer-logo">Evjen & Garatun ANS</div>
             <div class="footer-info">
                 <p>Org.nr: 936 893 147</p>
-                <p>© 2025 Evjen & Garatun ANS</p>
+                <p>© 2026 Evjen & Garatun ANS</p>
             </div>
-            <div class="footer-links">
-                <a href="tjenester.html">Tenester</a>
-                <a href="om-oss.html">Om oss</a>
-                <a href="index.html#kontakt">Kontakt</a>
+            <div class="footer-contact">
+                <a href="mailto:brage@zak.no">brage@zak.no</a>
+                <a href="tel:+4793803001">938 03 001</a>
+                <a href="mailto:garatunm@gmail.com">garatunm@gmail.com</a>
+                <a href="tel:+4748433746">484 33 746</a>
             </div>
         </div>
     </footer>
 
     <script>
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('active');
+            const lines = mobileMenuBtn.querySelectorAll('line');
+            if (mobileMenu.classList.contains('active')) {
+                lines[0].setAttribute('y1', '12');
+                lines[0].setAttribute('y2', '12');
+                lines[0].setAttribute('transform', 'rotate(45 12 12)');
+                lines[1].style.opacity = '0';
+                lines[2].setAttribute('y1', '12');
+                lines[2].setAttribute('y2', '12');
+                lines[2].setAttribute('transform', 'rotate(-45 12 12)');
+            } else {
+                lines[0].setAttribute('y1', '6');
+                lines[0].setAttribute('y2', '6');
+                lines[0].removeAttribute('transform');
+                lines[1].style.opacity = '1';
+                lines[2].setAttribute('y1', '18');
+                lines[2].setAttribute('y2', '18');
+                lines[2].removeAttribute('transform');
+            }
+        });
+
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('active');
+                const lines = mobileMenuBtn.querySelectorAll('line');
+                lines[0].setAttribute('y1', '6');
+                lines[0].setAttribute('y2', '6');
+                lines[0].removeAttribute('transform');
+                lines[1].style.opacity = '1';
+                lines[2].setAttribute('y1', '18');
+                lines[2].setAttribute('y2', '18');
+                lines[2].removeAttribute('transform');
+            });
+        });
+
         // Intersection Observer for animations
         const observerOptions = {
             threshold: 0.2,
